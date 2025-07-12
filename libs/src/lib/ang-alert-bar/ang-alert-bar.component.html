@@ -3,38 +3,25 @@
   [class.outlined]="variant === AlertMessageVariants.Outlined" [class.filled]="variant === AlertMessageVariants.Filled">
   <div class="alert-message-wrap">
     @if(severityIcon) {
-    <div class="alert-bar-icon">
+    <ng-container>
       @switch (message.alertType) { @case (AlertMessageTypes.Success) {
-      <svg viewBox="0 -64 1024 960" xmlns="http://www.w3.org/2000/svg" class="success__svg">
-        <path
-          d="M512 877.714c-241.371 0-438.857-197.486-438.857-438.857s197.486-438.857 438.857-438.857 438.857 197.486 438.857 438.857-197.486 438.857-438.857 438.857zM789.943 544.914l-296.229-296.229c-29.257-29.257-73.143-29.257-102.4 0l-153.6 153.6c-21.943 21.943-21.943 54.857 0 76.8 10.971 10.971 25.6 14.629 40.229 14.629s29.257-3.657 40.229-14.629l124.343-128 270.629 270.629c18.286 21.943 54.857 21.943 76.8 0s21.943-54.857 0-76.8z"
-          fill="currentColor"></path>
-      </svg>
+      <lib-success-icon class="alert-bar-icon"></lib-success-icon>
       } @case (AlertMessageTypes.Error) {
-      <svg focusable="false" viewBox="0 -64 1024 960" xmlns="http://www.w3.org/2000/svg" class="error__svg">
-        <path
-          d="M512 877.714c-241.371 0-438.857-197.486-438.857-438.857s197.486-438.857 438.857-438.857 438.857 197.486 438.857 438.857-197.486 438.857-438.857 438.857zM512 73.143c-201.143 0-365.714 164.571-365.714 365.714s164.571 365.714 365.714 365.714 365.714-164.571 365.714-365.714-164.571-365.714-365.714-365.714zM563.2 438.857l128 128c7.314 7.314 10.971 18.286 10.971 25.6 0 10.971-3.657 18.286-10.971 25.6-14.629 14.629-36.571 14.629-51.2 0l-128-128-128 131.657c-7.314 3.657-18.286 7.314-25.6 7.314-10.971 0-21.943-3.657-29.257-7.314-14.629-14.629-14.629-36.571 0-51.2l128-128-128-131.657c-7.314-7.314-10.971-18.286-10.971-25.6 0-10.971 3.657-18.286 10.971-25.6 14.629-14.629 36.571-14.629 51.2 0l128 128 128-128c7.314-7.314 18.286-10.971 25.6-10.971 10.971 0 18.286 3.657 25.6 10.971 14.629 14.629 14.629 36.571 0 51.2l-124.343 128z"
-          fill="currentColor"></path>
-      </svg>
+      <lib-error-icon class="alert-bar-icon"></lib-error-icon>
       } @case (AlertMessageTypes.Warning) {
-      <svg focusable="false" viewBox="0 -64 1024 960" xmlns="http://www.w3.org/2000/svg" class="warning__svg">
-        <path
-          d="M943.543 106.057l-365.714 731.429c-25.6 54.857-102.4 54.857-131.657 0l-365.714-731.429c-25.6-47.543 10.971-106.057 65.829-106.057h731.429c54.857 0 91.429 58.514 65.829 106.057zM512 621.714c25.6 0 43.886-25.6 43.886-58.514l-18.286-241.371c0-18.286-10.971-29.257-25.6-29.257s-25.6 10.971-25.6 29.257l-18.286 241.371c0 32.914 18.286 58.514 43.886 58.514zM512 146.286c-29.257 0-54.857 25.6-54.857 54.857s25.6 54.857 54.857 54.857 54.857-25.6 54.857-54.857-25.6-54.857-54.857-54.857z"
-          fill="currentColor"></path>
-      </svg>
+      <lib-warning-icon class="alert-bar-icon"></lib-warning-icon>
       } @case (AlertMessageTypes.Info) {
-      <svg focusable="false" viewBox="0 -64 1024 960" xmlns="http://www.w3.org/2000/svg" class="info__svg">
-        <path
-          d="M510.647 566.747v0c-29.477 0-53.358 23.881-53.358 53.358s23.881 53.358 53.358 53.358c29.477 0 53.358-23.881 53.358-53.358s-23.881-53.358-53.358-53.358zM512 241.371c-24.137 0-43.886 19.749-43.886 43.886v175.543c0 24.137 19.749 43.886 43.886 43.886s43.886-19.749 43.886-43.886v-175.543c0-24.137-19.749-43.886-43.886-43.886zM512 899.657c-242.249 0-438.857-196.608-438.857-438.857s196.608-438.857 438.857-438.857 438.857 196.608 438.857 438.857c0 242.249-196.608 438.857-438.857 438.857z"
-          fill="currentColor"></path>
-      </svg>
+      <lib-info-icon class="alert-bar-icon"></lib-info-icon>
       } }
-    </div>
+    </ng-container>
     }
 
     <div class="alert-bar-message">
       @if (getMessageType(message.alertMessage)) {
-      <ng-container *ngTemplateOutlet="message.alertMessage; context: { $implicit: message }"></ng-container>
+      <ng-container *ngTemplateOutlet="
+          message.alertMessage;
+          context: { $implicit: message }
+        "></ng-container>
       } @else {
       <span>{{ message.alertMessage }}</span>
       }
@@ -42,7 +29,7 @@
   </div>
 
   <div class="alert-pagination">
-    <div class="arrow " #leftArrow [class.arrow-disabled]="disableLeftArrow" (click)="showPrev()">
+    <div class="arrow" #leftArrow [class.arrow-disabled]="disableLeftArrow" (click)="showPrev()">
       <svg focusable="false" viewBox="0 -64 1024 960" xmlns="http://www.w3.org/2000/svg" class="left__svg">
         <path
           d="M464.457 705.829c14.629-14.629 14.629-36.571 0-51.2l-157.257-157.257h497.371c18.286 0 36.571-18.286 36.571-36.571s-18.286-36.571-36.571-36.571h-497.371l157.257-157.257c14.629-14.629 14.629-36.571 0-51.2-7.314-7.314-18.286-10.971-25.6-10.971-10.971 0-18.286 3.657-25.6 10.971l-219.429 219.429c-14.629 14.629-14.629 36.571 0 51.2l219.429 219.429c14.629 14.629 36.571 14.629 51.2 0z"
@@ -51,7 +38,7 @@
     </div>
     <div class="count">
       <span class="current">{{ currentIndex + 1 }}</span>
-      <span class="preposition"> {{getOfText()}} </span>
+      <span class="preposition"> {{ getOfText() }} </span>
       <span class="total">{{ messages.length }}</span>
     </div>
     <div class="arrow right" #rightArrow [class.arrow-disabled]="disableRightArrow" (click)="showNext()">
@@ -64,55 +51,39 @@
   </div>
 </div>
 } @else { @for(message of messages; track message.alertType) {
-<div class="alert-bar {{ GetMessageClass(message.alertType) }} " [class.maximized]="!truncateTextOverflow"
+<div class="alert-bar {{ getMessageClass(message.alertType) }} " [class.maximized]="!truncateTextOverflow"
   [class.outlined]="variant === AlertMessageVariants.Outlined" [class.filled]="variant === AlertMessageVariants.Filled"
   style="margin-bottom: 10px">
   <div class="alert-message-wrap">
     @if(severityIcon) {
-    <div class="alert-bar-icon">
+    <ng-container>
       @switch (message.alertType) { @case (AlertMessageTypes.Success) {
-      <svg viewBox="0 -64 1024 960" xmlns="http://www.w3.org/2000/svg" class="success__svg">
-        <path
-          d="M512 877.714c-241.371 0-438.857-197.486-438.857-438.857s197.486-438.857 438.857-438.857 438.857 197.486 438.857 438.857-197.486 438.857-438.857 438.857zM789.943 544.914l-296.229-296.229c-29.257-29.257-73.143-29.257-102.4 0l-153.6 153.6c-21.943 21.943-21.943 54.857 0 76.8 10.971 10.971 25.6 14.629 40.229 14.629s29.257-3.657 40.229-14.629l124.343-128 270.629 270.629c18.286 21.943 54.857 21.943 76.8 0s21.943-54.857 0-76.8z"
-          fill="currentColor"></path>
-      </svg>
+      <lib-success-icon class="alert-bar-icon"></lib-success-icon>
       } @case (AlertMessageTypes.Error) {
-      <svg focusable="false" viewBox="0 -64 1024 960" xmlns="http://www.w3.org/2000/svg" class="error__svg">
-        <path
-          d="M512 877.714c-241.371 0-438.857-197.486-438.857-438.857s197.486-438.857 438.857-438.857 438.857 197.486 438.857 438.857-197.486 438.857-438.857 438.857zM687.543 310.857c14.629-14.629 14.629-36.571 0-51.2-7.314-7.314-14.629-10.971-25.6-10.971-7.314 0-18.286 3.657-25.6 10.971l-128 128-128-128c-14.629-14.629-36.571-14.629-51.2 0-7.314 7.314-10.971 14.629-10.971 25.6 0 7.314 3.657 18.286 10.971 25.6l128 131.657-128 128c-14.629 14.629-14.629 36.571 0 51.2 7.314 3.657 18.286 7.314 29.257 7.314 7.314 0 18.286-3.657 25.6-7.314l128-131.657 128 128c14.629 14.629 36.571 14.629 51.2 0 7.314-7.314 10.971-14.629 10.971-25.6 0-7.314-3.657-18.286-10.971-25.6l-128-128 124.343-128z"
-          fill="currentColor"></path>
-      </svg>
+      <lib-error-icon class="alert-bar-icon"></lib-error-icon>
       } @case (AlertMessageTypes.Warning) {
-      <svg focusable="false" viewBox="0 -64 1024 960" xmlns="http://www.w3.org/2000/svg" class="warning__svg">
-        <path
-          d="M943.543 106.057l-365.714 731.429c-25.6 54.857-102.4 54.857-131.657 0l-365.714-731.429c-25.6-47.543 10.971-106.057 65.829-106.057h731.429c54.857 0 91.429 58.514 65.829 106.057zM512 621.714c25.6 0 43.886-25.6 43.886-58.514l-18.286-241.371c0-18.286-10.971-29.257-25.6-29.257s-25.6 10.971-25.6 29.257l-18.286 241.371c0 32.914 18.286 58.514 43.886 58.514zM512 146.286c-29.257 0-54.857 25.6-54.857 54.857s25.6 54.857 54.857 54.857 54.857-25.6 54.857-54.857-25.6-54.857-54.857-54.857z"
-          fill="currentColor"></path>
-      </svg>
+      <lib-warning-icon class="alert-bar-icon"></lib-warning-icon>
       } @case (AlertMessageTypes.Info) {
-      <svg focusable="false" viewBox="0 -64 1024 960" xmlns="http://www.w3.org/2000/svg" class="info__svg">
-        <path
-          d="M510.647 566.747v0c-29.477 0-53.358 23.881-53.358 53.358s23.881 53.358 53.358 53.358c29.477 0 53.358-23.881 53.358-53.358s-23.881-53.358-53.358-53.358zM512 241.371c-24.137 0-43.886 19.749-43.886 43.886v175.543c0 24.137 19.749 43.886 43.886 43.886s43.886-19.749 43.886-43.886v-175.543c0-24.137-19.749-43.886-43.886-43.886zM512 899.657c-242.249 0-438.857-196.608-438.857-438.857s196.608-438.857 438.857-438.857 438.857 196.608 438.857 438.857c0 242.249-196.608 438.857-438.857 438.857z"
-          fill="currentColor"></path>
-      </svg>
+      <lib-info-icon class="alert-bar-icon"></lib-info-icon>
       } }
-    </div>
+    </ng-container>
     }
 
     <div class="alert-bar-message">
+      @if (getMessageType(message.alertMessage)) {
+      <ng-container *ngTemplateOutlet="
+          message.alertMessage;
+          context: { $implicit: message }
+        "></ng-container>
+      } @else {
       <span>{{ message.alertMessage }}</span>
+      }
     </div>
-
-
-
   </div>
+  @if(closeIcon) {
   <div class="alert-pagination close">
-    <div class="arrow right">
-      <svg focusable="false" viewBox="0 -64 1024 960" xmlns="http://www.w3.org/2000/svg" class="left__svg">
-        <path
-          d="M822.857 179.2c14.629-14.629 14.629-36.571 0-51.2s-36.571-14.629-51.2 0l-259.657 259.657-259.657-259.657c-14.629-14.629-36.571-14.629-51.2 0s-14.629 36.571 0 51.2l259.657 259.657-259.657 259.657c-14.629 14.629-14.629 36.571 0 51.2s36.571 14.629 51.2 0l259.657-259.657 259.657 259.657c14.629 14.629 36.571 14.629 51.2 0s14.629-36.571 0-51.2l-259.657-259.657 259.657-259.657z"
-          fill="currentColor"></path>
-      </svg>
-    </div>
+    <lib-close-icon class="arrow right"></lib-close-icon>
   </div>
+  }
 </div>
 } }

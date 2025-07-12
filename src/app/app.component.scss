@@ -1,5 +1,29 @@
-// lib-ang-alert-bar {
-//     width: 500px;
-//     height: 100px;
-//     display: flex;
-// }
+.content {
+    flex: 1 1 0;
+    min-width: 0;
+
+    .title {
+        font-weight: 600;
+        font-size: 1.05rem;
+        margin-bottom: 2px;
+    }
+
+    .description {
+        font-size: 0.97rem;
+        margin-bottom: 2px;
+    }
+
+    .actions {
+        a {
+            color: #0a5a8b;
+            text-decoration: underline;
+            font-size: 0.96rem;
+            margin-right: 10px;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+}

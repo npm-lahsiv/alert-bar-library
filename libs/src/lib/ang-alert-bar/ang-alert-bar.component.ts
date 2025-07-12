@@ -2,45 +2,29 @@ import {
   Component,
   ElementRef,
   Input,
+  OnInit,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-export enum AlertMessageTypes {
-  Success = 0,
-  Info = 1,
-  Warning = 2,
-  Error = 3,
-  Normal = 4,
-  Custom = 5,
-}
-
-export enum AlertMessageVariants {
-  Text = 0,
-  Outlined = 1,
-  Filled = 2,
-}
-
-export interface AlertMessage {
-  alertType: AlertMessageTypes;
-  alertMessage: string | TemplateRef<any>;
-}
-
-export const OF_TRANSLATIONS: Record<string, string> = {
-  en: 'of',
-  es: 'de',
-  fr: 'de',
-  de: 'von',
-};
+import { AlertMessageTypes } from '../enums/AlertMessageTypes';
+import { AlertMessageVariants } from '../enums/AlertMessageVariants';
+import { AlertMessage } from '../contracts/AlertMessage';
+import { OF_TRANSLATIONS } from '../i18n/translate';
+import { SuccessIconComponent } from '../icons/success.icon';
+import { ErrorIconComponent } from '../icons/error.icon';
+import { WarningIconComponent } from '../icons/warning.icon';
+import { InfoIconComponent } from '../icons/info.icon';
+import { CloseIconComponent } from '../icons/close.icon';
 
 @Component({
   selector: 'lib-ang-alert-bar',
   standalone: true,
-  imports: [NgTemplateOutlet],
+  imports: [NgTemplateOutlet, SuccessIconComponent, ErrorIconComponent, WarningIconComponent, InfoIconComponent, CloseIconComponent],
   templateUrl: './ang-alert-bar.component.html',
   styleUrl: './ang-alert-bar.component.scss',
 })
-export class AngAlertBarComponent {
+export class AngAlertBarComponent implements OnInit {
   public messageClass: string | undefined;
   public currentIndex = 0;
   public disableLeftArrow = false;
@@ -50,8 +34,8 @@ export class AngAlertBarComponent {
   @Input() truncateTextOverflow = true;
   @Input() variant: AlertMessageVariants = AlertMessageVariants.Text;
   @Input() severityIcon = true;
-  @Input() closeIcon = true;
-  @Input() paginated = true;
+  @Input() closeIcon = false;
+  @Input() paginated = false;
   public pagination = true;
 
   @ViewChild('leftArrow')
@@ -102,10 +86,10 @@ export class AngAlertBarComponent {
 
   public updateMessage(): void {
     this.message = this.messages[this.currentIndex];
-    this.messageClass = this.GetMessageClass(this.message.alertType);
+    this.messageClass = this.getMessageClass(this.message.alertType);
   }
 
-  public GetMessageClass(alertType: AlertMessageTypes): string {
+  public getMessageClass(alertType: AlertMessageTypes): string {
     switch (alertType) {
       case AlertMessageTypes.Success:
         return 'alert-bar-success';
@@ -128,7 +112,6 @@ export class AngAlertBarComponent {
     return OF_TRANSLATIONS[lang] || OF_TRANSLATIONS['en'];
   }
 }
-
 /**.
  *
  * icons - close icon

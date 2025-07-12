@@ -1,20 +1,61 @@
-<h1>Paginated</h1>
-<lib-ang-alert-bar [messages]="messages1" [paginated]="false"></lib-ang-alert-bar><router-outlet></router-outlet>
+<h1>Demo</h1>
 
-<h1>Row Wise</h1>
-<lib-ang-alert-bar [messages]="messages2"
-  [truncateTextOverflow]="false"></lib-ang-alert-bar><router-outlet></router-outlet>
+<form style="margin-bottom: 1rem;">
+  <label>
+    <input type="checkbox" [(ngModel)]="truncateTextOverflow" name="overflow" />
+    Truncate text overflow
+  </label>
+
+  <label>
+    <input type="checkbox" [(ngModel)]="paginated" name="paginated" />
+    Paginated
+  </label>
+
+  <label>
+    <input type="checkbox" [(ngModel)]="severityIcon" name="severityIcon" />
+    Severity Icon
+  </label>
+
+  <label>
+    <input type="checkbox" [(ngModel)]="closeIcon" name="closeIcon" />
+    Close Icon
+  </label>
+
+  <div style="margin-top: 1rem;">
+    <label>
+      <input type="radio" name="variant" [value]="AlertMessageVariants.Text" [(ngModel)]="variant" />
+      Text
+    </label>
+    <label>
+      <input type="radio" name="variant" [value]="AlertMessageVariants.Outlined" [(ngModel)]="variant" />
+      Outlined
+    </label>
+    <label>
+      <input type="radio" name="variant" [value]="AlertMessageVariants.Filled" [(ngModel)]="variant" />
+      Filled
+    </label>
+  </div>
+</form>
+
+<h3>Severities</h3>
+<lib-ang-alert-bar [messages]="messages1" [paginated]="paginated" [truncateTextOverflow]="truncateTextOverflow"
+  [variant]="variant" [closeIcon]="closeIcon" [severityIcon]="severityIcon">
+</lib-ang-alert-bar><router-outlet></router-outlet>
 
 
-<h1>non truncated</h1>
-<lib-ang-alert-bar [messages]="messages3"
-  [truncateTextOverflow]="false"></lib-ang-alert-bar><router-outlet></router-outlet>
+<h3>Custom Template</h3>
+
+<lib-ang-alert-bar [messages]="message2" [paginated]="false" [truncateTextOverflow]="false">
+</lib-ang-alert-bar><router-outlet></router-outlet>
 
 <ng-template #customTpl let-data>
-  <div class="custom-alert">
-    <h1>Merged pull request</h1>
-    <p>Pull request #41 merged after a successful build</p>
-    Custom Alert: {{ data.text }}
-    <a href="https//:test.com">View commit</a> <a href="https//:test.com">Dismiss</a>
+  <div class="content">
+    <div class="title">Merged pull request</div>
+    <div class="description">Pull request #41 merged after a successful build</div>
+    <div class="actions">
+      <a>View commit</a>
+      <a>Dismiss</a>
+    </div>
   </div>
 </ng-template>
+

@@ -11,7 +11,7 @@
   border-radius: 4px;
 
   &.alert-bar-success {
-    border-color: #0e700e;
+    border-color: #a3cfbb;
     background-color: #e2fbf0;
   }
 
@@ -75,30 +75,7 @@
   display: flex;
   flex: 0 0 auto;
   margin-right: 0.625rem;
-  align-items: center;
-
-  svg {
-    display: inline-flex;
-    height: 20px;
-    width: 20px;
-    transform: scaleY(-1);
-  }
-
-  .success__svg {
-    color: #4f9e70;
-  }
-
-  .error__svg {
-    color: #bd432d;
-  }
-
-  .warning__svg {
-    color: #cf8a23;
-  }
-
-  .info__svg {
-    color: #3884ff;
-  }
+  align-items: flex-end;
 }
 
 .alert-bar-message {
@@ -157,22 +134,6 @@
   }
 
   span {
-    color: white;
-  }
-
-  .success__svg {
-    color: white;
-  }
-
-  .error__svg {
-    color: white;
-  }
-
-  .warning__svg {
-    color: white;
-  }
-
-  .info__svg {
     color: white;
   }
 }
