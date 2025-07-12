@@ -1,6 +1,12 @@
 {
   "name": "ang-alert-bar",
-  "version": "0.0.1",
+  "version": "1.0.1",
+  "description": "Angular Message component with different severity types and predefined styles",
+  "author": "Lahsiv",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/npm-lahsiv/alert-bar-library"
+  },
   "peerDependencies": {
     "@angular/common": "^17.2.0",
     "@angular/core": "^17.2.0"
@@ -8,5 +14,13 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "alert",
+    "notification",
+    "library",
+    "alert-bar"
+  ]
 }
