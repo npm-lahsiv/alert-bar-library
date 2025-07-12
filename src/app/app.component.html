@@ -1,0 +1,20 @@
+<h1>Paginated</h1>
+<lib-ang-alert-bar [messages]="messages1" [paginated]="false"></lib-ang-alert-bar><router-outlet></router-outlet>
+
+<h1>Row Wise</h1>
+<lib-ang-alert-bar [messages]="messages2"
+  [truncateTextOverflow]="false"></lib-ang-alert-bar><router-outlet></router-outlet>
+
+
+<h1>non truncated</h1>
+<lib-ang-alert-bar [messages]="messages3"
+  [truncateTextOverflow]="false"></lib-ang-alert-bar><router-outlet></router-outlet>
+
+<ng-template #customTpl let-data>
+  <div class="custom-alert">
+    <h1>Merged pull request</h1>
+    <p>Pull request #41 merged after a successful build</p>
+    Custom Alert: {{ data.text }}
+    <a href="https//:test.com">View commit</a> <a href="https//:test.com">Dismiss</a>
+  </div>
+</ng-template>
