@@ -1,6 +1,13 @@
 # Angular Alert Bar
 
 <p align="center">
+  <a href="https://github.com/npm-lahsiv/alert-bar-library">
+    <img width="550" height="200" src="https://i.sstatic.net/TObFVaJj.png">
+  </a>
+  
+  <br>
+  <br>
+
   <a href="https://www.npmjs.com/package/ang-alert-bar">
     <img src="https://img.shields.io/npm/dm/ang-alert-bar.svg?style=flat" alt="downloads">
   </a>
@@ -8,6 +15,10 @@
   <a href="https://badge.fury.io/for/js/ang-alert-bar">
     <img src="https://badge.fury.io/js/ang-alert-bar.svg" alt="npm version" height="18">
   </a>
+
+![install size](https://img.shields.io/badge/top%202%%20-8A2BE2)
+![NPM](https://img.shields.io/npm/l/ang-alert-bar)
+
 </p>
 
 - Display contextual messages (success, info, warning, error) with clean, accessible styles that match modern web apps.
@@ -16,6 +27,28 @@
 - Works seamlessly in any Angular project (standalone or monorepo) with minimal dependencies.
 
 ## Examples/Demo
+
+Live Demo [Example](https://stackblitz.com/)
+
+Severities
+
+![ang-alert-bar](https://i.sstatic.net/3Jo4AmlD.png)
+
+Paginated
+
+![ang-alert-bar](https://i.sstatic.net/V0OzJo9t.png)
+
+Filled
+
+![ang-alert-bar](https://i.sstatic.net/pzBrGvOf.png)
+
+Outlined
+
+![ang-alert-bar](https://i.sstatic.net/XxKu0Fcg.png)
+
+Custom Template
+
+![ang-alert-bar](https://i.sstatic.net/nuFQBXXP.png)
 
 ## Installation
 
@@ -36,6 +69,32 @@
 | variant              | AlertMessageVariants | Optional, default: Text  | variant style - Text, Filled or Outlined     |
 | severityIcon         | boolean              | Optional, default: true  | show severity icon                           |
 | closeIcon            | boolean              | Optional, default: true  | show close icon                              |
+
+## Types
+
+1. Model - AlertMessage
+
+```typescript
+alertType: AlertMessageTypes;
+alertMessage: string | TemplateRef<any>;
+```
+
+2. Enum - AlertMessageVariants
+
+```typescript
+  Text = 0,
+  Outlined = 1,
+  Filled = 2,
+```
+
+3. Enum - AlertMessageTypes
+
+```typescript
+  Success = 0,
+  Info = 1,
+  Warning = 2,
+  Error = 3,
+```
 
 ## Usage
 
@@ -128,18 +187,18 @@ export class AppComponent implements OnInit {
 }
 ```
 
-## Test
-
-Run tests
-
-```
-npm test
-```
-
 ## License
 
-[MIT](https://tldrlegal.com/license/mit-license) © [Vishal Hasnani](https://github.com/Hasnanivishal)
+[MIT](https://tldrlegal.com/license/mit-license) © [lahsiv](https://github.com/npm-lahsiv/alert-bar-library)
 
 **Thanks for Installing**
 
-> Conatct me for any suggestion/issues -> hasnanivishal@gmail.com
+> Contact me for any suggestion/issues -> hasnanivishal@gmail.com
+
+## Commands
+
+```
+npm login
+npm publish --access public
+npm dist-tag add ang-alert-bar@1.0.2 ng17
+```
