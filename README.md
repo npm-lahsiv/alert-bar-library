@@ -16,7 +16,6 @@
     <img src="https://badge.fury.io/js/ang-alert-bar.svg" alt="npm version" height="18">
   </a>
 
-![install size](https://img.shields.io/badge/top%202%%20-8A2BE2)
 ![NPM](https://img.shields.io/npm/l/ang-alert-bar)
 
 </p>
