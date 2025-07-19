@@ -1,6 +1,6 @@
 {
   "name": "ang-alert-bar",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "Angular Message component with different severity types and predefined styles",
   "author": "Lahsiv",
   "repository": {
@@ -8,8 +8,8 @@
     "url": "https://github.com/npm-lahsiv/alert-bar-library"
   },
   "peerDependencies": {
-    "@angular/common": "17.3.12",
-    "@angular/core": "17.3.12"
+    "@angular/common": "18.2.13",
+    "@angular/core": "18.2.13"
   },
   "dependencies": {
     "tslib": "^2.3.0"
