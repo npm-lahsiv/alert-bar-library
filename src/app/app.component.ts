@@ -1,6 +1,5 @@
-import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { Component, OnInit, TemplateRef, viewChild } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { NxWelcomeComponent } from "./nx-welcome.component";
 import {
   AlertMessage,
   AlertMessageTypes,
@@ -10,7 +9,6 @@ import {
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
-  standalone: true,
   imports: [
     ReactiveFormsModule,
     FormsModule,
@@ -22,7 +20,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
   styleUrl: "./app.component.scss",
 })
 export class AppComponent implements OnInit {
-  @ViewChild("customTpl", { static: true }) customTpl!: TemplateRef<any>;
+  customTpl = viewChild.required<TemplateRef<any>>("customTpl");
 
   messages1: AlertMessage[] = [
     {
@@ -43,9 +41,9 @@ export class AppComponent implements OnInit {
     },
   ];
 
-  public message2: AlertMessage[] = [];
+  message2: AlertMessage[] = [];
 
-  public AlertMessageVariants = AlertMessageVariants;
+  AlertMessageVariants = AlertMessageVariants;
   truncateTextOverflow = true;
   paginated = false;
   severityIcon = true;
@@ -56,7 +54,7 @@ export class AppComponent implements OnInit {
     this.message2 = [
       {
         alertType: AlertMessageTypes.Success,
-        alertMessage: this.customTpl,
+        alertMessage: this.customTpl(),
       },
     ];
   }

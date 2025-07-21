@@ -64,5 +64,7 @@
       "style": "css"
     }
   },
-  "defaultProject": "org"
+  "defaultProject": "org",
+  "nxCloudId": "687e67bf818db6034d875f12",
+  "useLegacyCache": true
 }

@@ -1,4 +1,11 @@
-import { Component, computed, input, signal, TemplateRef } from "@angular/core";
+import {
+  Component,
+  computed,
+  input,
+  linkedSignal,
+  signal,
+  TemplateRef,
+} from "@angular/core";
 import { NgTemplateOutlet } from "@angular/common";
 import { AlertMessageTypes } from "../enums/AlertMessageTypes";
 import { AlertMessageVariants } from "../enums/AlertMessageVariants";
@@ -12,7 +19,6 @@ import { CloseIconComponent } from "../icons/close.icon";
 
 @Component({
   selector: "lib-ang-alert-bar",
-  standalone: true,
   imports: [
     NgTemplateOutlet,
     SuccessIconComponent,
@@ -37,20 +43,23 @@ export class AngAlertBarComponent {
   closeIcon = input(false);
   paginated = input(false);
 
+  /* Linked Signals */
+  message = linkedSignal(() => this.messages()[0]);
+
   /* Writable Signals */
-  message = signal<AlertMessage>(this.messages()[0]);
   currentIndex = signal(0);
 
   /* Computed Signals */
+  messageLength = computed(() => this.messages().length);
   messageClass = computed(() => this.getMessageClass(this.message().alertType));
   disableLeftArrow = computed(() => this.currentIndex() === 0);
   disableRightArrow = computed(
-    () => this.currentIndex() === this.messages.length - 1
+    () => this.currentIndex() === this.messageLength() - 1
   );
-  pagination = computed(() => this.messages.length > 1);
+  pagination = computed(() => this.messageLength() > 1);
 
   showPrev(): void {
-    if (this.messages.length > 1 && this.currentIndex() > 0) {
+    if (this.messageLength() > 1 && this.currentIndex() > 0) {
       this.currentIndex.update((n) => n - 1);
       this.updateMessage();
     }
@@ -58,8 +67,8 @@ export class AngAlertBarComponent {
 
   showNext(): void {
     if (
-      this.messages.length > 1 &&
-      this.currentIndex() < this.messages.length - 1
+      this.messageLength() > 1 &&
+      this.currentIndex() < this.messageLength() - 1
     ) {
       this.currentIndex.update((n) => n + 1);
       this.updateMessage();
@@ -79,8 +88,11 @@ export class AngAlertBarComponent {
       case AlertMessageTypes.Error:
         return "alert-bar-error";
       case AlertMessageTypes.Info:
-      default:
         return "alert-bar-info";
+      default:
+        // eslint-disable-next-line no-case-declarations
+        const _exhaustiveCheck: never = alertType;
+        return _exhaustiveCheck;
     }
   }
 

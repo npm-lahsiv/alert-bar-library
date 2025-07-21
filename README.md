@@ -83,18 +83,18 @@ alertMessage: string | TemplateRef<any>;
 2. Enum - AlertMessageVariants
 
 ```typescript
-  Text = 0,
-  Outlined = 1,
-  Filled = 2,
+  Text,
+  Outlined,
+  Filled,
 ```
 
 3. Enum - AlertMessageTypes
 
 ```typescript
-  Success = 0,
-  Info = 1,
-  Warning = 2,
-  Error = 3,
+  Success,
+  Info,
+  Warning,
+  Error,
 ```
 
 ## Usage
@@ -103,13 +103,7 @@ alertMessage: string | TemplateRef<any>;
 
 ```typescript
 @Component({
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    FormsModule,
-    RouterModule,
-    AngAlertBarComponent,
-  ],
+  imports: [AngAlertBarComponent],
   selector: "app-root",
   template: `<lib-ang-alert-bar
       [messages]="messages1"
@@ -119,8 +113,7 @@ alertMessage: string | TemplateRef<any>;
       [closeIcon]="closeIcon"
       [severityIcon]="severityIcon"
     >
-    </lib-ang-alert-bar
-    ><router-outlet></router-outlet>
+    </lib-ang-alert-bar>
 
     <h3>Custom Template</h3>
 
@@ -129,8 +122,7 @@ alertMessage: string | TemplateRef<any>;
       [paginated]="false"
       [truncateTextOverflow]="false"
     >
-    </lib-ang-alert-bar
-    ><router-outlet></router-outlet>
+    </lib-ang-alert-bar>
 
     <ng-template #customTpl let-data>
       <div class="content">
@@ -147,7 +139,7 @@ alertMessage: string | TemplateRef<any>;
   styleUrl: "./app.component.scss",
 })
 export class AppComponent implements OnInit {
-  @ViewChild("customTpl", { static: true }) customTpl!: TemplateRef<any>;
+  customTpl = viewChild.required<TemplateRef<any>>("customTpl");
 
   messages1: AlertMessage[] = [
     {
@@ -168,9 +160,9 @@ export class AppComponent implements OnInit {
     },
   ];
 
-  public message2: AlertMessage[] = [];
+  message2: AlertMessage[] = [];
 
-  public AlertMessageVariants = AlertMessageVariants;
+  AlertMessageVariants = AlertMessageVariants;
   truncateTextOverflow = true;
   paginated = false;
   severityIcon = true;
@@ -181,7 +173,7 @@ export class AppComponent implements OnInit {
     this.message2 = [
       {
         alertType: AlertMessageTypes.Success,
-        alertMessage: this.customTpl,
+        alertMessage: this.customTpl(),
       },
     ];
   }
@@ -202,4 +194,15 @@ export class AppComponent implements OnInit {
 npm login
 npm publish --access public
 npm dist-tag add ang-alert-bar@1.0.2 ng17
+```
+
+## Migrations
+
+[Nx and Angular Versions](https://nx.dev/technologies/angular/recipes/angular-nx-version-matrix)
+
+commands
+
+```
+npx nx migrate 20.5.0
+npx nx migrate --run-migrations
 ```
