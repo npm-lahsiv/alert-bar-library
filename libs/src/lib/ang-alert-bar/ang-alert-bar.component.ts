@@ -1,123 +1,99 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
-import { NgTemplateOutlet } from '@angular/common';
-import { AlertMessageTypes } from '../enums/AlertMessageTypes';
-import { AlertMessageVariants } from '../enums/AlertMessageVariants';
-import { AlertMessage } from '../contracts/AlertMessage';
-import { OF_TRANSLATIONS } from '../i18n/translate';
-import { SuccessIconComponent } from '../icons/success.icon';
-import { ErrorIconComponent } from '../icons/error.icon';
-import { WarningIconComponent } from '../icons/warning.icon';
-import { InfoIconComponent } from '../icons/info.icon';
-import { CloseIconComponent } from '../icons/close.icon';
+import { Component, computed, input, signal, TemplateRef } from "@angular/core";
+import { NgTemplateOutlet } from "@angular/common";
+import { AlertMessageTypes } from "../enums/AlertMessageTypes";
+import { AlertMessageVariants } from "../enums/AlertMessageVariants";
+import { AlertMessage } from "../contracts/AlertMessage";
+import { OF_TRANSLATIONS } from "../i18n/translate";
+import { SuccessIconComponent } from "../icons/success.icon";
+import { ErrorIconComponent } from "../icons/error.icon";
+import { WarningIconComponent } from "../icons/warning.icon";
+import { InfoIconComponent } from "../icons/info.icon";
+import { CloseIconComponent } from "../icons/close.icon";
 
 @Component({
-  selector: 'lib-ang-alert-bar',
+  selector: "lib-ang-alert-bar",
   standalone: true,
-  imports: [NgTemplateOutlet, SuccessIconComponent, ErrorIconComponent, WarningIconComponent, InfoIconComponent, CloseIconComponent],
-  templateUrl: './ang-alert-bar.component.html',
-  styleUrl: './ang-alert-bar.component.scss',
+  imports: [
+    NgTemplateOutlet,
+    SuccessIconComponent,
+    ErrorIconComponent,
+    WarningIconComponent,
+    InfoIconComponent,
+    CloseIconComponent,
+  ],
+  templateUrl: "./ang-alert-bar.component.html",
+  styleUrl: "./ang-alert-bar.component.scss",
 })
-export class AngAlertBarComponent implements OnInit {
-  public messageClass: string | undefined;
-  public currentIndex = 0;
-  public disableLeftArrow = false;
-  public disableRightArrow = false;
-  public AlertMessageTypes = AlertMessageTypes;
-  public AlertMessageVariants = AlertMessageVariants;
-  @Input() truncateTextOverflow = true;
-  @Input() variant: AlertMessageVariants = AlertMessageVariants.Text;
-  @Input() severityIcon = true;
-  @Input() closeIcon = false;
-  @Input() paginated = false;
-  public pagination = true;
+export class AngAlertBarComponent {
+  AlertMessageTypes = AlertMessageTypes;
+  AlertMessageVariants = AlertMessageVariants;
 
-  @ViewChild('leftArrow')
-  public leftArrow!: ElementRef;
+  /* Input Signals */
+  messages = input.required<Array<AlertMessage>>();
 
-  @ViewChild('rightArrow')
-  public rightArrow!: ElementRef;
+  variant = input<AlertMessageVariants>(AlertMessageVariants.Text);
+  truncateTextOverflow = input(true);
+  severityIcon = input(true);
+  closeIcon = input(false);
+  paginated = input(false);
 
-  @Input() messages: Array<AlertMessage> = [];
+  /* Writable Signals */
+  message = signal<AlertMessage>(this.messages()[0]);
+  currentIndex = signal(0);
 
-  public message!: AlertMessage;
+  /* Computed Signals */
+  messageClass = computed(() => this.getMessageClass(this.message().alertType));
+  disableLeftArrow = computed(() => this.currentIndex() === 0);
+  disableRightArrow = computed(
+    () => this.currentIndex() === this.messages.length - 1
+  );
+  pagination = computed(() => this.messages.length > 1);
 
-  ngOnInit() {
-    this.message = this.messages[0];
-    this.updateMessage();
-
-    if (this.messages.length > 1) {
-      this.pagination = true;
-      this.updateArrows();
-    } else {
-      this.pagination = false;
-    }
-  }
-
-  public showPrev(): void {
-    if (this.messages.length > 1 && this.currentIndex > 0) {
-      this.currentIndex--;
+  showPrev(): void {
+    if (this.messages.length > 1 && this.currentIndex() > 0) {
+      this.currentIndex.update((n) => n - 1);
       this.updateMessage();
-      this.updateArrows();
     }
   }
 
-  public showNext(): void {
+  showNext(): void {
     if (
       this.messages.length > 1 &&
-      this.currentIndex < this.messages.length - 1
+      this.currentIndex() < this.messages.length - 1
     ) {
-      this.currentIndex++;
+      this.currentIndex.update((n) => n + 1);
       this.updateMessage();
-      this.updateArrows();
     }
   }
 
-  public updateArrows(): void {
-    this.disableLeftArrow = this.currentIndex === 0;
-    this.disableRightArrow = this.currentIndex === this.messages.length - 1;
+  updateMessage(): void {
+    this.message.set(this.messages()[this.currentIndex()]);
   }
 
-  public updateMessage(): void {
-    this.message = this.messages[this.currentIndex];
-    this.messageClass = this.getMessageClass(this.message.alertType);
-  }
-
-  public getMessageClass(alertType: AlertMessageTypes): string {
+  getMessageClass(alertType: AlertMessageTypes): string {
     switch (alertType) {
       case AlertMessageTypes.Success:
-        return 'alert-bar-success';
+        return "alert-bar-success";
       case AlertMessageTypes.Warning:
-        return 'alert-bar-warning';
+        return "alert-bar-warning";
       case AlertMessageTypes.Error:
-        return 'alert-bar-error';
+        return "alert-bar-error";
       case AlertMessageTypes.Info:
       default:
-        return 'alert-bar-info';
+        return "alert-bar-info";
     }
   }
 
-  public getMessageType(message: any): message is TemplateRef<any> {
+  getMessageType(message: any): message is TemplateRef<any> {
     return message instanceof TemplateRef;
   }
 
+  getMessageTemplateRef(message: AlertMessage): TemplateRef<any> {
+    return message.alertMessage as TemplateRef<any>;
+  }
+
   getOfText(): string {
-    const lang = navigator.language?.split('-')[0] || 'en';
-    return OF_TRANSLATIONS[lang] || OF_TRANSLATIONS['en'];
+    const lang = navigator.language?.split("-")[0] || "en";
+    return OF_TRANSLATIONS[lang] || OF_TRANSLATIONS["en"];
   }
 }
-/**.
- *
- * icons - close icon
- * customization - custom icon
- * template - support for html
- * localization - word of
- * dark mode -
- * publish to npm -
- */

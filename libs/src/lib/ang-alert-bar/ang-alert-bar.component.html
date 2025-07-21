@@ -1,10 +1,11 @@
-@if(paginated) {
-<div class="alert-bar {{ messageClass }} " [class.maximized]="!truncateTextOverflow"
-  [class.outlined]="variant === AlertMessageVariants.Outlined" [class.filled]="variant === AlertMessageVariants.Filled">
+@if(paginated()) {
+<div class="alert-bar {{ messageClass() }} " [class.maximized]="!truncateTextOverflow()"
+  [class.outlined]="variant() === AlertMessageVariants.Outlined"
+  [class.filled]="variant() === AlertMessageVariants.Filled">
   <div class="alert-message-wrap">
-    @if(severityIcon) {
+    @if(severityIcon()) {
     <ng-container>
-      @switch (message.alertType) { @case (AlertMessageTypes.Success) {
+      @switch (message().alertType) { @case (AlertMessageTypes.Success) {
       <lib-success-icon class="alert-bar-icon"></lib-success-icon>
       } @case (AlertMessageTypes.Error) {
       <lib-error-icon class="alert-bar-icon"></lib-error-icon>
@@ -17,19 +18,19 @@
     }
 
     <div class="alert-bar-message">
-      @if (getMessageType(message.alertMessage)) {
+      @if (getMessageType(message().alertMessage)) {
       <ng-container *ngTemplateOutlet="
-          message.alertMessage;
+          getMessageTemplateRef(message());
           context: { $implicit: message }
         "></ng-container>
       } @else {
-      <span>{{ message.alertMessage }}</span>
+      <span>{{ message().alertMessage }}</span>
       }
     </div>
   </div>
 
   <div class="alert-pagination">
-    <div class="arrow" #leftArrow [class.arrow-disabled]="disableLeftArrow" (click)="showPrev()">
+    <div class="arrow" #leftArrow [class.arrow-disabled]="disableLeftArrow()" (click)="showPrev()">
       <svg focusable="false" viewBox="0 -64 1024 960" xmlns="http://www.w3.org/2000/svg" class="left__svg">
         <path
           d="M464.457 705.829c14.629-14.629 14.629-36.571 0-51.2l-157.257-157.257h497.371c18.286 0 36.571-18.286 36.571-36.571s-18.286-36.571-36.571-36.571h-497.371l157.257-157.257c14.629-14.629 14.629-36.571 0-51.2-7.314-7.314-18.286-10.971-25.6-10.971-10.971 0-18.286 3.657-25.6 10.971l-219.429 219.429c-14.629 14.629-14.629 36.571 0 51.2l219.429 219.429c14.629 14.629 36.571 14.629 51.2 0z"
@@ -37,11 +38,11 @@
       </svg>
     </div>
     <div class="count">
-      <span class="current">{{ currentIndex + 1 }}</span>
+      <span class="current">{{ currentIndex() + 1 }}</span>
       <span class="preposition"> {{ getOfText() }} </span>
-      <span class="total">{{ messages.length }}</span>
+      <span class="total">{{ messages().length }}</span>
     </div>
-    <div class="arrow right" #rightArrow [class.arrow-disabled]="disableRightArrow" (click)="showNext()">
+    <div class="arrow right" #rightArrow [class.arrow-disabled]="disableRightArrow()" (click)="showNext()">
       <svg focusable="false" viewBox="0 -64 1024 960" xmlns="http://www.w3.org/2000/svg" class="left__svg">
         <path
           d="M464.457 705.829c14.629-14.629 14.629-36.571 0-51.2l-157.257-157.257h497.371c18.286 0 36.571-18.286 36.571-36.571s-18.286-36.571-36.571-36.571h-497.371l157.257-157.257c14.629-14.629 14.629-36.571 0-51.2-7.314-7.314-18.286-10.971-25.6-10.971-10.971 0-18.286 3.657-25.6 10.971l-219.429 219.429c-14.629 14.629-14.629 36.571 0 51.2l219.429 219.429c14.629 14.629 36.571 14.629 51.2 0z"
@@ -50,12 +51,12 @@
     </div>
   </div>
 </div>
-} @else { @for(message of messages; track message.alertType) {
-<div class="alert-bar {{ getMessageClass(message.alertType) }} " [class.maximized]="!truncateTextOverflow"
-  [class.outlined]="variant === AlertMessageVariants.Outlined" [class.filled]="variant === AlertMessageVariants.Filled"
-  style="margin-bottom: 10px">
+} @else { @for(message of messages(); track message.alertType) {
+<div class="alert-bar {{ getMessageClass(message.alertType) }} " [class.maximized]="!truncateTextOverflow()"
+  [class.outlined]="variant() === AlertMessageVariants.Outlined"
+  [class.filled]="variant() === AlertMessageVariants.Filled" style="margin-bottom: 10px">
   <div class="alert-message-wrap">
-    @if(severityIcon) {
+    @if(severityIcon()) {
     <ng-container>
       @switch (message.alertType) { @case (AlertMessageTypes.Success) {
       <lib-success-icon class="alert-bar-icon"></lib-success-icon>
@@ -80,7 +81,7 @@
       }
     </div>
   </div>
-  @if(closeIcon) {
+  @if(closeIcon()) {
   <div class="alert-pagination close">
     <lib-close-icon class="arrow right"></lib-close-icon>
   </div>

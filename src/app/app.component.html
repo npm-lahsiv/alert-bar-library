@@ -38,16 +38,17 @@
 </form>
 
 <h3>Severities</h3>
+@if(messages1.length > 0) {
 <lib-ang-alert-bar [messages]="messages1" [paginated]="paginated" [truncateTextOverflow]="truncateTextOverflow"
   [variant]="variant" [closeIcon]="closeIcon" [severityIcon]="severityIcon">
 </lib-ang-alert-bar><router-outlet></router-outlet>
-
+}
 
 <h3>Custom Template</h3>
-
+@if(message2.length > 0) {
 <lib-ang-alert-bar [messages]="message2" [paginated]="false" [truncateTextOverflow]="false">
 </lib-ang-alert-bar><router-outlet></router-outlet>
-
+}
 <ng-template #customTpl let-data>
   <div class="content">
     <div class="title">Merged pull request</div>
@@ -58,4 +59,3 @@
     </div>
   </div>
 </ng-template>
-

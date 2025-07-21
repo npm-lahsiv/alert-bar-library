@@ -1,6 +1,62 @@
 export const OF_TRANSLATIONS: Record<string, string> = {
-  en: 'of',
-  es: 'de',
-  fr: 'de',
-  de: 'von',
+  af: "van", // Afrikaans
+  am: "የ", // Amharic
+  ar: "من", // Arabic
+  az: "dən", // Azerbaijani
+  bg: "на", // Bulgarian
+  bn: "এর", // Bengali
+  ca: "de", // Catalan
+  cs: "z", // Czech
+  cy: "o", // Welsh
+  da: "af", // Danish
+  de: "von", // German
+  el: "του", // Greek
+  en: "of", // English
+  es: "de", // Spanish
+  et: "le", // Estonian
+  eu: "of", // Basque (uses English 'of' often)
+  fa: "از", // Persian
+  fi: "of", // Finnish
+  fr: "de", // French
+  ga: "de", // Irish
+  gl: "de", // Galician
+  gu: "નુ", // Gujarati
+  he: "של", // Hebrew
+  hi: "का", // Hindi
+  hr: "od", // Croatian
+  hu: "-ból", // Hungarian (suffix)
+  id: "dari", // Indonesian
+  is: "af", // Icelandic
+  it: "di", // Italian
+  ja: "の", // Japanese
+  ka: "დან", // Georgian
+  kk: "нің", // Kazakh
+  km: "នៃ", // Khmer
+  ko: "의", // Korean
+  lo: "ຂອງ", // Lao
+  lt: "iš", // Lithuanian
+  lv: "no", // Latvian
+  mk: "на", // Macedonian
+  ml: "അവയോട്", // Malayalam
+  mr: "च्या", // Marathi
+  ms: "daripada", // Malay
+  nl: "van", // Dutch
+  no: "av", // Norwegian
+  pl: "z", // Polish
+  pt: "de", // Portuguese
+  ro: "din", // Romanian
+  ru: "из", // Russian
+  sk: "z", // Slovak
+  sl: "od", // Slovenian
+  sq: "i", // Albanian
+  sr: "од", // Serbian
+  sv: "av", // Swedish
+  ta: "இன்", // Tamil
+  te: "కు", // Telugu
+  th: "ของ", // Thai
+  tr: "den", // Turkish
+  uk: "з", // Ukrainian
+  ur: "کا", // Urdu
+  vi: "của", // Vietnamese
+  zh: "的", // Chinese
 };
