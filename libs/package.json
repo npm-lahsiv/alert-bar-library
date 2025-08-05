@@ -1,6 +1,6 @@
 {
   "name": "ang-alert-bar",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Angular Message component with different severity types and predefined styles",
   "author": "Lahsiv",
   "repository": {

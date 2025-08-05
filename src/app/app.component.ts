@@ -16,8 +16,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     AngAlertBarComponent,
   ],
   selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrl: "./app.component.scss",
+  templateUrl: "app.component.html",
+  styleUrl: "app.component.scss",
 })
 export class AppComponent implements OnInit {
   customTpl = viewChild.required<TemplateRef<any>>("customTpl");
@@ -57,5 +57,9 @@ export class AppComponent implements OnInit {
         alertMessage: this.customTpl(),
       },
     ];
+  }
+
+  onCloseEvent(message: AlertMessage) {
+    this.messages1 = this.messages1.filter((x) => x != message);
   }
 }

@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
-  selector: "lib-close-icon",
+  selector: "lib-close-icon, close-icon",
   standalone: true,
   styles: [
     `

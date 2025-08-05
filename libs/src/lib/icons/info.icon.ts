@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
-  selector: "lib-info-icon",
+  selector: 'lib-info-icon, info-icon, i.alert-bar-icon',
   standalone: true,
   styles: [
     `

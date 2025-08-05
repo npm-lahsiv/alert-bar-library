@@ -17,7 +17,7 @@
   </a>
 
   <a href="https://img.shields.io/npm/l/ang-alert-bar">
-    <img src="https://img.shields.io/npm/l/ang-alert-bar.svg" alt="npm version" height="18">
+    <img src="https://img.shields.io/npm/l/ang-alert-bar.svg" alt="license" height="18">
   </a>
 
 </p>
@@ -29,7 +29,7 @@
 
 ## Examples/Demo
 
-Live Demo [Example](https://stackblitz.com/)
+Live Demo [Example](https://stackblitz.com/edit/ang-alert-bar)
 
 Severities
 
@@ -58,18 +58,24 @@ Custom Template
 ## API
 
 `import { AngAlertBarComponent } from 'ang-alert-bar'`<br>
-`selector: lib-ang-alert-bar`
+`selector: alert-bar`
 
 ### @Inputs()
 
 | Input                | Type                 | Required                 | Description                                  |
 | -------------------- | -------------------- | ------------------------ | -------------------------------------------- |
-| messages             | AlertMessage[]       | **YES**                  | array of AlertMessage .                      |
+| messages             | AlertMessage[]       | **YES**                  | array of AlertMessage                        |
 | paginated            | boolean              | Optional, default: false | enable pagination                            |
 | truncateTextOverflow | boolean              | Optional, default: true  | message will be truncated to fit in one line |
 | variant              | AlertMessageVariants | Optional, default: Text  | variant style - Text, Filled or Outlined     |
 | severityIcon         | boolean              | Optional, default: true  | show severity icon                           |
 | closeIcon            | boolean              | Optional, default: true  | show close icon                              |
+
+### @Outputs()
+
+| Input      | Type         | Description    |
+| ---------- | ------------ | -------------- |
+| closeEvent | AlertMessage | event on close |
 
 ## Types
 
@@ -99,30 +105,26 @@ alertMessage: string | TemplateRef<any>;
 
 ## Usage
 
-- Use of component via selector 'ang-alert-bar'.
+Use of component via selector 'ang-alert-bar'.
 
 ```typescript
 @Component({
   imports: [AngAlertBarComponent],
   selector: "app-root",
-  template: `<lib-ang-alert-bar
+  template: `
+    <alert-bar
       [messages]="messages1"
       [paginated]="paginated"
       [truncateTextOverflow]="truncateTextOverflow"
       [variant]="variant"
       [closeIcon]="closeIcon"
       [severityIcon]="severityIcon"
-    >
-    </lib-ang-alert-bar>
+      (closeEvent)="onCloseEvent($event)"
+    />
 
-    <h3>Custom Template</h3>
+    <h3>Custom Template Example</h3>
 
-    <lib-ang-alert-bar
-      [messages]="message2"
-      [paginated]="false"
-      [truncateTextOverflow]="false"
-    >
-    </lib-ang-alert-bar>
+    <alert-bar [messages]="message2" severityIcon closeIcon />
 
     <ng-template #customTpl let-data>
       <div class="content">
@@ -135,8 +137,9 @@ alertMessage: string | TemplateRef<any>;
           <a>Dismiss</a>
         </div>
       </div>
-    </ng-template>`,
-  styleUrl: "./app.component.scss",
+    </ng-template>
+  `,
+  styleUrl: "app.component.scss",
 })
 export class AppComponent implements OnInit {
   customTpl = viewChild.required<TemplateRef<any>>("customTpl");
@@ -176,6 +179,10 @@ export class AppComponent implements OnInit {
         alertMessage: this.customTpl(),
       },
     ];
+  }
+
+  onCloseEvent(message: AlertMessage) {
+    this.messages1 = this.messages1.filter((x) => x != message);
   }
 }
 ```

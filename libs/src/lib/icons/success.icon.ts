@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
-  selector: "lib-success-icon",
+  selector: "lib-success-icon, success-icon",
   standalone: true,
   styles: [
     `

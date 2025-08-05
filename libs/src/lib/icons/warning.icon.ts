@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
-  selector: "lib-warning-icon",
+  selector: "lib-warning-icon, warning-icon",
   standalone: true,
   styles: [
     `

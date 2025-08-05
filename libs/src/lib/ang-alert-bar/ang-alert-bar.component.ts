@@ -1,8 +1,11 @@
 import {
+  booleanAttribute,
+  ChangeDetectionStrategy,
   Component,
   computed,
   input,
   linkedSignal,
+  output,
   signal,
   TemplateRef,
 } from "@angular/core";
@@ -18,7 +21,7 @@ import { InfoIconComponent } from "../icons/info.icon";
 import { CloseIconComponent } from "../icons/close.icon";
 
 @Component({
-  selector: "lib-ang-alert-bar",
+  selector: "lib-ang-alert-bar, ang-alert-bar, alert-bar",
   imports: [
     NgTemplateOutlet,
     SuccessIconComponent,
@@ -27,21 +30,24 @@ import { CloseIconComponent } from "../icons/close.icon";
     InfoIconComponent,
     CloseIconComponent,
   ],
-  templateUrl: "./ang-alert-bar.component.html",
-  styleUrl: "./ang-alert-bar.component.scss",
+  templateUrl: "ang-alert-bar.component.html",
+  styleUrl: "ang-alert-bar.component.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AngAlertBarComponent {
   AlertMessageTypes = AlertMessageTypes;
   AlertMessageVariants = AlertMessageVariants;
 
   /* Input Signals */
-  messages = input.required<Array<AlertMessage>>();
+  readonly messages = input.required<Array<AlertMessage>>();
 
-  variant = input<AlertMessageVariants>(AlertMessageVariants.Text);
-  truncateTextOverflow = input(true);
-  severityIcon = input(true);
-  closeIcon = input(false);
-  paginated = input(false);
+  readonly variant = input<AlertMessageVariants>(AlertMessageVariants.Text);
+  readonly truncateTextOverflow = input(true, { transform: booleanAttribute });
+  readonly severityIcon = input(true, { transform: booleanAttribute });
+  readonly closeIcon = input(false, { transform: booleanAttribute });
+  readonly paginated = input(false, { transform: booleanAttribute });
+
+  readonly closeEvent = output<AlertMessage>();
 
   /* Linked Signals */
   message = linkedSignal(() => this.messages()[0]);

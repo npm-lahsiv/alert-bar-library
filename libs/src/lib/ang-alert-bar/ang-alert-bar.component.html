@@ -6,23 +6,22 @@
     @if(severityIcon()) {
     <ng-container>
       @switch (message().alertType) { @case (AlertMessageTypes.Success) {
-      <lib-success-icon class="alert-bar-icon"></lib-success-icon>
+      <success-icon class="alert-bar-icon" />
       } @case (AlertMessageTypes.Error) {
-      <lib-error-icon class="alert-bar-icon"></lib-error-icon>
+      <error-icon class="alert-bar-icon" />
       } @case (AlertMessageTypes.Warning) {
-      <lib-warning-icon class="alert-bar-icon"></lib-warning-icon>
+      <warning-icon class="alert-bar-icon" />
       } @case (AlertMessageTypes.Info) {
-      <lib-info-icon class="alert-bar-icon"></lib-info-icon>
+      <info-icon class="alert-bar-icon" />
       } }
     </ng-container>
     }
 
     <div class="alert-bar-message">
-      @if (getMessageType(message().alertMessage)) {
-      <ng-container *ngTemplateOutlet="
-          getMessageTemplateRef(message());
-          context: { $implicit: message }
-        "></ng-container>
+      @let messageType = getMessageType(message().alertMessage);
+      @if (messageType) {
+      <ng-container [ngTemplateOutlet]="getMessageTemplateRef(message())"
+        [ngTemplateOutletContext]="{ $implicit: message() }" />
       } @else {
       <span>{{ message().alertMessage }}</span>
       }
@@ -59,31 +58,30 @@
     @if(severityIcon()) {
     <ng-container>
       @switch (message.alertType) { @case (AlertMessageTypes.Success) {
-      <lib-success-icon class="alert-bar-icon"></lib-success-icon>
+      <success-icon class="alert-bar-icon" />
       } @case (AlertMessageTypes.Error) {
-      <lib-error-icon class="alert-bar-icon"></lib-error-icon>
+      <error-icon class="alert-bar-icon" />
       } @case (AlertMessageTypes.Warning) {
-      <lib-warning-icon class="alert-bar-icon"></lib-warning-icon>
+      <warning-icon class="alert-bar-icon" />
       } @case (AlertMessageTypes.Info) {
-      <lib-info-icon class="alert-bar-icon"></lib-info-icon>
+      <i class="alert-bar-icon"></i>
       } }
     </ng-container>
     }
 
     <div class="alert-bar-message">
-      @if (getMessageType(message.alertMessage)) {
-      <ng-container *ngTemplateOutlet="
-          message.alertMessage;
-          context: { $implicit: message }
-        "></ng-container>
+      @let messageType = getMessageType(message.alertMessage);
+      @if (messageType) {
+      <ng-container [ngTemplateOutlet]="getMessageTemplateRef(message)"
+        [ngTemplateOutletContext]="{ $implicit: message }" />
       } @else {
       <span>{{ message.alertMessage }}</span>
       }
     </div>
   </div>
   @if(closeIcon()) {
-  <div class="alert-pagination close">
-    <lib-close-icon class="arrow right"></lib-close-icon>
+  <div class="alert-pagination close" (click)="closeEvent.emit(message)">
+    <close-icon class="arrow right" />
   </div>
   }
 </div>
